@@ -20,7 +20,7 @@ function getEuro(done){
     });
     req.on('error', (e) => {
         console.log(`problem with request: ${e.message}`);
-        done(new Error('Проблеми з отриманням даних'));
+        done(new Error('Проблеми з отриманням даних!'));
     });
     req.end();
 }
