@@ -2,7 +2,7 @@ const https = require('https');
 const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
 var googleTTS = require('google-tts-api');
-const getEuro = require('./functions').getEuro;
+const {getEuro, getFootballData} = require('./functions');
 const server_port = process.env.PORT || 8080;
  
 const token = '466727526:AAFIHErebM9LwSPeYURJrCPQIFP8BL0jm0s';
@@ -51,5 +51,12 @@ bot.onText(/курс/i, (msg, match) => {
                 bot.sendMessage(chatId, `<b>${result[i].currency.toUpperCase()}</b> \n <b>Покупка: ${result[i].ask} \n </b><b>Продаж: ${result[i].bid}</b>`, {parse_mode : "HTML"});
             }
         }
+    });
+});
+
+bot.onText(/футбол (.+)/, (msg, match) => {
+    const chatId = msg.chat.id;
+    getFootballData((err, data)=>{
+        bot.sendMessage(chatId, resp);
     });
 });
