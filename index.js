@@ -1,5 +1,6 @@
 const https = require('https');
 const TelegramBot = require('node-telegram-bot-api');
+var googleTTS = require('google-tts-api');
 const getEuro = require('./functions').getEuro;
 const server_port = process.env.PORT || 8080;
  
@@ -16,10 +17,23 @@ bot.setWebHook('https://telegram-bot-roman.herokuapp.com/bot'+token);
 bot.onText(/\/echo (.+)/, (msg, match) => {
  
   const chatId = msg.chat.id;
-  const resp = match[1]; // the captured "whatever" 
+  const resp = match[1];
  
-  // send back the matched "whatever" to the chat 
   bot.sendMessage(chatId, resp);
+});
+
+bot.onText(/скажи (.+)/, (msg, match) => {
+ 
+  const chatId = msg.chat.id;
+  const resp = match[1];
+
+  googleTtsApi('Привіт, як справи?', 'uk', 1)
+    .then(function (url) {
+        bot.sendAudio(chatId, url);
+    })
+    .catch(function (err) {
+        bot.sendMessage(chatId, "Помилка при зверненні до сервера");
+    });
 });
 
 bot.onText(/курс/, (msg, match) => {
