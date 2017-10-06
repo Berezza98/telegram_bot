@@ -27,9 +27,11 @@ bot.onText(/скажи (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
   const resp = match[1];
 
-  googleTtsApi('Привіт, як справи?', 'uk', 1)
+  googleTtsApi(resp, 'uk', 1)
     .then(function (url) {
-        bot.sendAudio(chatId, url);
+        console.log(url);
+        const stream = fs.createReadStream(url);
+        bot.sendAudio(chatId, stream);
     })
     .catch(function (err) {
         bot.sendMessage(chatId, "Помилка при зверненні до сервера");
