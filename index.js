@@ -2,26 +2,15 @@ const https = require('https');
 const TelegramBot = require('node-telegram-bot-api');
 const getEuro = require('./functions').getEuro;
 const server_port = process.env.PORT || 8080;
-const Koa = require('koa');
-const Router = require('koa-router');
-const bodyParser = require('koa-bodyparser');
  
 const token = '466727526:AAFIHErebM9LwSPeYURJrCPQIFP8BL0jm0s';
-const bot = new TelegramBot(token);
-bot.setWebHook('https://git.heroku.com/telegram-bot-roman.git/bot');
 
-const app = new Koa();
-
-const router = Router();
-router.post('/bot', ctx => {
-    const {body} = ctx.request;
-    bot.processUpdate(body);
-    ctx.status = 200;
+const bot = new TelegramBot(token, {
+    webHook: {
+        port: server_port
+    }
 });
 
-app.use(bodyParser());
-app.use(router.routes());
-app.listen(server_port);
 bot.onText(/\/echo (.+)/, (msg, match) => {
  
   const chatId = msg.chat.id;
