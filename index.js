@@ -12,16 +12,6 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
   bot.sendMessage(chatId, resp);
 });
 
-bot.onText(/buttons/, (msg, match) => {
- 
-  const chatId = msg.chat.id;
-  bot.sendMessage(chatId, "Welcome User", {
-    "reply_markup": {
-        "keyboard": [["Меню"], ["Доставка на дом"], ["Заказ столика"]]
-        }
-    });
-});
-
 bot.onText(/курс/, (msg, match) => {
     const chatId = msg.chat.id;
     getEuro((err, result) =>{
