@@ -36,7 +36,7 @@ bot.onText(/скажи (.+)/, (msg, match) => {
     });
 });
 
-bot.onText(/курс/, (msg, match) => {
+bot.onText(/курс/i, (msg, match) => {
     const chatId = msg.chat.id;
     getEuro((err, result) =>{
         if(err){
