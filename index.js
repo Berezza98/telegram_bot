@@ -2,7 +2,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const getEuro = require('./functions').getEuro;
  
 const token = '466727526:AAFIHErebM9LwSPeYURJrCPQIFP8BL0jm0s';
-const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(token, { webHook: { port: process.env.PORT || 443, host: '0.0.0.0' } });
 bot.onText(/\/echo (.+)/, (msg, match) => {
  
   const chatId = msg.chat.id;
@@ -21,7 +21,7 @@ bot.onText(/курс/, (msg, match) => {
         else{
             console.log(result);
             for(let i=0; i<3; i++){
-                bot.sendMessage(chatId, `<b>${result[i].currency.toUpperCase()}</b> <b>Покупка: ${result[i].ask}; </b><b>Продаж: ${result[i].bid}</b>`, {parse_mode : "HTML"});
+                bot.sendMessage(chatId, `<b>${result[i].currency.toUpperCase()}</b> \n <b>Покупка: ${result[i].ask} \n </b><b>Продаж: ${result[i].bid}</b>`, {parse_mode : "HTML"});
             }
         }
     });
