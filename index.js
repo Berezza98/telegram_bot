@@ -9,6 +9,7 @@ bot.setWebHook('https://git.heroku.com/telegram-bot-roman.git/bot');
 
 https.createServer((req, res) => {
     if(res.method == "POST" && req.url == "/bot"){
+        bot.processUpdate();
         res.end();
     }
 }).listen(server_port)
