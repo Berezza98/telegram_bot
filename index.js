@@ -1,8 +1,17 @@
+const https = require('https');
 const TelegramBot = require('node-telegram-bot-api');
 const getEuro = require('./functions').getEuro;
+const server_port = process.env.PORT || 8080;
  
 const token = '466727526:AAFIHErebM9LwSPeYURJrCPQIFP8BL0jm0s';
-const bot = new TelegramBot(token, { webHook: { port: process.env.PORT || 443, host: '0.0.0.0' } });
+const bot = new TelegramBot(token);
+bot.setWebHook('https://git.heroku.com/telegram-bot-roman.git/bot');
+
+https.createServer((req, res) => {
+    if(res.method == "POST" && req.url == "/bot"){
+        res.end();
+    }
+}).listen(server_port)
 bot.onText(/\/echo (.+)/, (msg, match) => {
  
   const chatId = msg.chat.id;
