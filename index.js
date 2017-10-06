@@ -1,4 +1,5 @@
 const https = require('https');
+const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
 var googleTTS = require('google-tts-api');
 const getEuro = require('./functions').getEuro;
