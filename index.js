@@ -57,6 +57,6 @@ bot.onText(/курс/i, (msg, match) => {
 bot.onText(/футбол (.+)/, (msg, match) => {
     const chatId = msg.chat.id;
     getFootballData((err, data)=>{
-        bot.sendMessage(chatId, resp);
+        bot.sendMessage(chatId, data);
     });
 });
