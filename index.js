@@ -11,7 +11,7 @@ const bot = new TelegramBot(token, {
     }
 });
 
-bot.setWebHook('https://git.heroku.com/telegram-bot-roman.git/bot'+token);
+bot.setWebHook('https://telegram-bot-roman.herokuapp.com/bot'+token);
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
  
