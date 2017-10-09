@@ -42,7 +42,7 @@ function getFootballData(club, done){
         });
         res.on('end', () => {
             let $= cheerio.load(result);
-            let data= $(`.slide.first .feed-table td.right-team a:contains('${club}'), td.left-team a:contains('${club}')`);
+            let data= $(`.slide.first .feed-table td.right-team a:contains('${club}'), .slide.first .feed-table td.left-team a:contains('${club}')`);
             let arrayOfData= [];
             for(let i=0; i< data.length; i++){
                 let tr= data.eq(i).closest('tr');
