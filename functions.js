@@ -42,7 +42,7 @@ function getFootballData(club, done){
         });
         res.on('end', () => {
             let $= cheerio.load(result);
-            if(club){
+            if(club && club !== 'сьогодні'){
                 let data= $(`.slide.first .feed-table td.right-team a:contains('${club}'), .slide.first .feed-table td.left-team a:contains('${club}')`);
             }
             if(club === 'сьогодні'){
