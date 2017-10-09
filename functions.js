@@ -42,12 +42,13 @@ function getFootballData(club, done){
         });
         res.on('end', () => {
             let $= cheerio.load(result);
+            let data;
             if(club && club !== 'сьогодні'){
-                let data= $(`.slide.first .feed-table td.right-team a:contains('${club}'), .slide.first .feed-table td.left-team a:contains('${club}')`);
+                data= $(`.slide.first .feed-table td.right-team a:contains('${club}'), .slide.first .feed-table td.left-team a:contains('${club}')`);
             }
             if(club === 'сьогодні'){
                 console.log(club.toUpperCase());
-                let data= $(`.slide.first .feed-table td.right-team a`);
+                data= $(`.slide.first .feed-table td.right-team a`);
             }
             let arrayOfData= [];
             for(let i=0; i< data.length; i++){
