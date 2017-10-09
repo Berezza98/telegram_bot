@@ -26,7 +26,7 @@ function getEuro(done){
     req.end();
 }
 
-function getFootballData(done){
+function getFootballData(club, done){
     const options = {
         protocol: 'http:',
         hostname: 'football.ua',
@@ -42,8 +42,19 @@ function getFootballData(done){
         });
         res.on('end', () => {
             let $= cheerio.load(result);
-            let data= $('.score ended a').eq(1).text();
-            done(null, data);
+            let data= $(`.slide.first .feed-table td.right-team a:contains('${club}'), td.left-team a:contains('${club}')`);
+            let arrayOfData= [];
+            for(let i=0; i< data.length; i++){
+                let tr= data.eq(i).closest('tr');
+                let footballObj= {
+                    time: tr.find('.time').text().trim(),
+                    leftTeam: tr.find('.left-team a').text().trim(),
+                    rightTeam: tr.find('.right-team a').text().trim(),
+                    score: tr.find('.score a').text().trim()
+                }
+                arrayOfData.push(footballObj);
+            }
+            done(null, arrayOfData);
         });
     });
     req.on('error', (e) => {
