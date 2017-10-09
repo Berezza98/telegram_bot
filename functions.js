@@ -46,6 +46,7 @@ function getFootballData(club, done){
                 let data= $(`.slide.first .feed-table td.right-team a:contains('${club}'), .slide.first .feed-table td.left-team a:contains('${club}')`);
             }
             if(club === 'сьогодні'){
+                console.log(club.toUpperCase());
                 let data= $(`.slide.first .feed-table td.right-team a`);
             }
             let arrayOfData= [];
