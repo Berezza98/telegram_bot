@@ -8,13 +8,13 @@ const server_port = process.env.PORT || 8080;
 const token = '466727526:AAFIHErebM9LwSPeYURJrCPQIFP8BL0jm0s';
 
 const bot = new TelegramBot(token, {
-    // webHook: {
-    //     port: server_port
-    // }
-    polling: true
+    webHook: {
+        port: server_port
+    }
+    //polling: true
 });
 
-//bot.setWebHook('https://telegram-bot-roman.herokuapp.com/bot'+token);
+bot.setWebHook('https://telegram-bot-roman.herokuapp.com/bot'+token);
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
  
